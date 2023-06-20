@@ -16,8 +16,8 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('expiration_date');
             $table->decimal('amount');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('customer_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('customer_id')->constrained();
             $table->timestamps();
         });
     }
