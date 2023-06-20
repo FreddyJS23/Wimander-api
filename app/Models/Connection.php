@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Connection extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        'start_date',
+        'expiration_date',
+        'amount',
+    ];
 }
