@@ -17,6 +17,10 @@ class CustomerResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'last_name' => $this->last_name,
+            'mac' => $this->mac,
+            'start_date'=>$this->connection->start_date,
+            'expiration_date'=>$this->connection->expiration_date,
             
             
         ];
