@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'user',
         'email',
         'password',
@@ -67,5 +68,14 @@ public function customer(): HasOne
     return $this->hasOne(Customer::class);
 }
 
+/**
+ * Get the role associated with the User
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasOne
+ */
+public function role(): HasOne
+{
+    return $this->hasOne(Role::class);
+}
 
 }
