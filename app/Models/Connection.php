@@ -10,6 +10,7 @@ class Connection extends Model
     use HasFactory;
 
     protected $fillable=[
+        'user_id',
         'start_date',
         'expiration_date',
         'amount',
