@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\UserController;
+use App\Models\Connection;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,24 +27,30 @@ Route::post('/register',[AuthController::class,'createUser'] );
 
 
 
-    Route::middleware('auth:sanctum')->group(function (){
+   
+Route::middleware('auth:sanctum')->group(function (){
 
-    Route::controller(CustomerController::class)->group(function(){
+       
+   
+   
+        Route::controller(CustomerController::class)->group(function(){
         Route::get('/customer','index')->name('index');
         Route::post('/customer/store','store')->name('store');
-        Route::post('/customer/{id}/extends-date','store')->name('extend date');
         Route::get('/customer/{id}','show')->name('show');
-        Route::put('/customer{id}','update')->name('update');
-        Route::delete('/customer{id}','delete')->name('delete');
+        Route::put('/customer/{id}','update')->name('update');
+        Route::delete('/customer/{id}','destroy')->name('destroy');
         
     });
-    
+     
+    Route::put('/customer/extends-date/{id}', ConnectionController::class)->name('extend date');
+
+
     Route::controller(UserController::class)->group(function(){
         Route::get('/user','index')->name('index');
         Route::post('/user/store','store')->name('store')->withoutMiddleware('auth:sanctum');
         Route::get('/user/{id}','show')->name('show');
-        Route::put('/user{id}','update')->name('update');
-        Route::delete('/user{id}','delete')->name('delete');
+        Route::put('/user/{id}','update')->name('update');
+        Route::delete('/user/{id}','destroy')->name('destroy');
         
     });
     
@@ -67,3 +76,4 @@ Route::fallback(function () {
 
 
 
+    
