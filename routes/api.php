@@ -25,17 +25,19 @@ Route::post('/register', [AuthController::class, 'createUser']);
 Route::middleware('auth:sanctum')->group(function () {
 
     //clientes
-    Route::apiResource('customer', CustomerController::class);
+    Route::apiResource('customer', CustomerController::class)->parameter('customer','id');
 
     //actulizar fecha vencimineto de la conexion
     Route::put('/customer/extends-date/{id}', ConnectionController::class)->name('extend date');
 
     //datos usuarios
-    Route::resource('user', UserController::class)->only(['show', 'update']);
+    Route::resource('user', UserController::class)->only(['show', 'update'])->parameter('user','id');
 
     //acciones para usuario que solo hacen admins
-    Route::resource('user', UserController::class)->only(['index', 'destroy']);
+    Route::resource('user', UserController::class)->only(['index', 'destroy'])->parameter('user','id');
 });
+
+
 
 //responder rutas no autorizadas en caso que no tenga el accept "application/json"
 Route::get('/error', function () {
