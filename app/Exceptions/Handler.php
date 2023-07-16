@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -18,6 +21,8 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+
+
     /**
      * Register the exception handling callbacks for the application.
      */
@@ -25,6 +30,11 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (MethodNotAllowedHttpException $e, Request $request) {
+
+            return response()->json(["error" => "El metodo " .  $request->method() . " no esta permitido en esta ruta "], 405);
         });
     }
 }
