@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
+    
+    public function __construct()
+    {
+        $this->authorizeResource(Customer::class, 'customer');
+    }
+    
     /**
      * Display a listing of the resource.
      */
