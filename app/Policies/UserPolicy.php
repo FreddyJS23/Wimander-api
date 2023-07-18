@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
@@ -13,15 +12,15 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role_id === 1 ;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, User $model)
+    public function view(User $user,User $model): bool
     {
-        //
+        return Auth::id() === $model->id ;
     }
 
     /**
@@ -35,9 +34,9 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user): bool
+    public function update(User $user, User $model): bool
     {
-    return Auth::id() == $user->id;
+        return Auth::id() === $model->id;
     }
 
     /**
@@ -45,7 +44,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        //
+        return Auth::user()->role_id === 1 ;
     }
 
     /**
