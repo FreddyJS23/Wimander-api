@@ -6,7 +6,6 @@ use App\Http\Requests\CustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
@@ -36,9 +35,9 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Customer $customer)
     {
-        if (Customer::find($id))   return  response()->json(['status' => true, 'data' => new CustomerResource(Customer::find($id))], 200);
+        if ($customer)   return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 200);
         else   return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
     }
   
@@ -46,10 +45,8 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomerRequest $request, string $id)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        $customer=Customer::find($id);
-        
         $customer->fill($request->all())->save();
 
         return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 200);
@@ -58,12 +55,10 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        $customer=Customer::find($id);
-        
+    public function destroy(Customer $customer)
+    { 
         if(!$customer)  return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
       
-        return  response()->json(['status' => true, 'data' => Customer::destroy($id)], 200);
+        return  response()->json(['status' => true, 'data' => Customer::destroy($customer)], 200);
     }
 }
