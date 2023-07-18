@@ -13,9 +13,7 @@ class UpdateUserRequest extends ApiValidationRequest
      */
     public function authorize(): bool
     {
-       $user=User::find($this->route('id'));
-      
-        return $user &&  $this->user()->can('update',$user);
+    return true;
     }
 
     /**
