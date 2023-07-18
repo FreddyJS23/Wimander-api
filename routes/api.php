@@ -25,7 +25,7 @@ Route::post('/register', [AuthController::class, 'createUser']);
 Route::middleware('auth:sanctum')->group(function () {
 
     //clientes
-    Route::apiResource('customer', CustomerController::class)->parameter('customer','id');
+    Route::apiResource('customer', CustomerController::class);
 
     //actulizar fecha vencimineto de la conexion
     Route::put('/customer/extends-date/{id}', ConnectionController::class)->name('extend date');
