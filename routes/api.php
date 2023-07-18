@@ -29,12 +29,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //actulizar fecha vencimineto de la conexion
     Route::put('/customer/extends-date/{id}', ConnectionController::class)->name('extend date');
-
+ 
     //datos usuarios
-    Route::resource('user', UserController::class)->only(['show', 'update'])->parameter('user','id');
+    Route::resource('user', UserController::class)->only(['show', 'update']);
 
     //acciones para usuario que solo hacen admins
-    Route::resource('user', UserController::class)->only(['index', 'destroy'])->parameter('user','id');
+    Route::resource('user', UserController::class)->only(['index', 'destroy']);
 });
 
 
