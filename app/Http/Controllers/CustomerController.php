@@ -35,7 +35,7 @@ class CustomerController extends Controller
 
         $customer->connection()->create($request->except('name', 'last_name', 'mac', 'locked', 'user_id') + ['user_id' => $user_id]);
 
-        return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 200);
+        return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 201);
     }
 
     /**
@@ -65,6 +65,6 @@ class CustomerController extends Controller
     { 
         if(!$customer)  return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
       
-        return  response()->json(['status' => true, 'data' => Customer::destroy($customer)], 200);
+        return  response()->json(['status' => true, 'data' => Customer::destroy($customer->id)], 200);
     }
 }
