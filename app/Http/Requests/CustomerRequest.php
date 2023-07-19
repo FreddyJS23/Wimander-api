@@ -22,9 +22,8 @@ class CustomerRequest extends ApiValidationRequest
         return [
             'name'=>'required|min:3|max:25',
             'last_name'=>'required|min:3|max:25',
-            'mac'=>'required|mac_address',
+            'mac'=>'required|mac_address|unique:App\Models\Customer,mac',
             'locked'=>'prohibited',
-         
             'start_date'=>'required|date_format:Y-m-d',
             'expiration_date'=>'required|date_format:Y-m-d',
             'amount'=>'required|decimal:0,2'
