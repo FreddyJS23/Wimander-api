@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('customer', CustomerController::class);
 
     //actulizar fecha vencimineto de la conexion
-    Route::put('/customer/extends-date/{id}', ConnectionController::class)->name('extend date');
+    Route::put('/customer/extends-date/{customerID}', ConnectionController::class)->name('extend date')->can('update','customerID');
  
     //datos usuarios
     Route::resource('user', UserController::class)->only(['show', 'update']);
