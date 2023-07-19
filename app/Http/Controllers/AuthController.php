@@ -18,7 +18,7 @@ class AuthController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'usuario creado',
-        ], 200);
+        ], 201);
     }
 
     public function loginUser(LoginRequest $request)
