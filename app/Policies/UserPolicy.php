@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+
 
 class UserPolicy
 {
@@ -20,7 +20,8 @@ class UserPolicy
      */
     public function view(User $user,User $model): bool
     {
-        return Auth::id() === $model->id ;
+        
+        return $user->id === $model->id ;
     }
 
     /**
@@ -36,7 +37,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
-        return Auth::id() === $model->id;
+        return $user->id === $model->id;
     }
 
     /**
@@ -44,7 +45,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return Auth::user()->role_id === 1 ;
+        return $user->role_id === 1 ;
     }
 
     /**
