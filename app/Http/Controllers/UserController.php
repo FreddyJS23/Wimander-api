@@ -51,7 +51,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if (!$user)  return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
-
-        return  response()->json(['status' => true, 'data' => User::destroy($user)], 200);
+        return  response()->json(['status' => true, 'data' => User::destroy($user->id)], 200);
     }
 }
