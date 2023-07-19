@@ -22,7 +22,7 @@ class UpdateCustomerRequest extends ApiValidationRequest
         return [
             'name'=>'required|min:3|max:25',
             'last_name'=>'required|min:3|max:25',
-            'mac'=>'required|mac_address',
+            'mac'=>'required|mac_address|unique:App\Models\Customer,mac',
             
         ];
     }
