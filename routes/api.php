@@ -3,7 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\Proceeds;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Logout;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +37,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //acciones para usuario que solo hacen admins
     Route::resource('user', UserController::class)->only(['index', 'destroy']);
+    
+    //ganancia neta de todos los clientes
+    Route::get('/proceeds',Proceeds::class);
+    
+    //cerrar sesion
+    Route::get('/logout',Logout::class);
 });
 
 
