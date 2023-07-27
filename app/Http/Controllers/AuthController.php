@@ -13,7 +13,7 @@ class AuthController extends Controller
     public function createUser(CreateUserRequest $request)
     {
         //crear usuario, agregar campos adicionales, y hashear contraseña
-        User::create($request->except('password','active','role_id') + ['active' => true, 'role_id' => 2, 'password' => Hash::make($request->password)]);
+        User::create($request->except('password', 'active', 'role_id') + ['active' => true, 'role_id' => 2, 'password' => Hash::make($request->password)]);
 
         return response()->json([
             'status' => true,
@@ -36,7 +36,7 @@ class AuthController extends Controller
         }
 
         //auntenticacion exitosa
-        return response()->json(['status' => true, 'message' => 'welcome', 'token' => $user->createToken('API TOKEN')->plainTextToken]);
+        return response()->json(['status' => true, 'user' => ['id' => $user->id,'name' => $user->last_name,  'token' => $user->createToken('API TOKEN')->plainTextToken]]);
 
         //cuando el usuario se logee se podra accer a toda la informacion de su modelo  
         //Auth::user();
