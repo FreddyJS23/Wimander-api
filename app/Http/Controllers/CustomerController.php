@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Resources\CustomerCollection;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return CustomerResource::collection(Customer::all()->where('user_id', Auth::id()));
+        return new CustomerCollection(Customer::all()->where('user_id', Auth::id()));
     }
 
     /**
