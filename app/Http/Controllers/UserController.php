@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::all()->where('role_id', 2));
+        return new UserCollection(User::all()->where('role_id', 2));
     }
 
 
