@@ -12,6 +12,6 @@ class Proceeds extends Controller
      */
     public function __invoke()
     {
-        return Connection::select('amount')->where('user_id', Auth::id())->sum('amount');
+        return response()->json(['proceeds'=> Connection::select('amount')->where('user_id', Auth::id())->sum('amount')],200);
     }
 }
