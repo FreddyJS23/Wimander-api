@@ -31,7 +31,7 @@ class UserController extends Controller
     public function show(User $user)
     {
       
-        if ($user)   return  response()->json(['status' => true, 'data' => new UserResource($user)], 200);
+        if ($user)   return  response()->json(['status' => true, 'user' => new UserResource($user)], 200);
         else   return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
     }
 
@@ -43,7 +43,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->fill($request->all())->save();
 
-        return  response()->json(['status' => true, 'data' => new UserResource($user)], 200);
+        return  response()->json(['status' => true, 'user' => new UserResource($user)], 200);
     }
 
     /**
@@ -52,6 +52,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         if (!$user)  return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
-        return  response()->json(['status' => true, 'data' => User::destroy($user->id)], 200);
+        return  response()->json(['status' => true, 'userID' => User::destroy($user->id) ? $user->id : ''  ], 200);
     }
 }
