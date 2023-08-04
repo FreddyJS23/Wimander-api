@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'last_name'=>'admin',
             'user'=>'admin1',
             'email'=>'admin1@gmail.com',
-            'password'=>Hash::make('admin'),
+            'password'=>Hash::make('12345678'),
             'active'=>true,
             'role_id'=>1
          ]);
@@ -33,7 +33,7 @@ class UserSeeder extends Seeder
             'last_name'=>'admin',
             'user'=>'admin2',
             'email'=>'admin2@gmail.com',
-            'password'=>Hash::make('admin'),
+            'password'=>Hash::make('12345678'),
             'active'=>true,
             'role_id'=>1
          ]);
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             'last_name'=>'user',
             'user'=>'user1',
             'email'=>'user1@gmail.com',
-            'password'=>Hash::make('user'),
+            'password'=>Hash::make('12345678'),
             'active'=>true,
             'role_id'=>2
          ]);
