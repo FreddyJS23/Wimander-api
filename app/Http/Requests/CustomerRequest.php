@@ -23,6 +23,7 @@ class CustomerRequest extends ApiValidationRequest
             'name'=>'required|min:3|max:25',
             'last_name'=>'required|min:3|max:25',
             'mac'=>'required|mac_address|unique:App\Models\Customer,mac',
+            'phone'=>'required|min:7|max:12',
             'locked'=>'prohibited',
             'start_date'=>'required|date_format:Y-m-d',
             'expiration_date'=>'required|date_format:Y-m-d',

@@ -22,6 +22,7 @@ class CustomerFactory extends Factory
             'name' => fake()->firstNameMale(),
             'last_name' => fake()->lastName(),
             'mac' => fake()->macAddress(),
+            'phone' => '0424-1234567',
             'locked'=>false,
             
             

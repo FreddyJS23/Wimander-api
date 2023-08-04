@@ -34,7 +34,7 @@ class CustomerController extends Controller
 
         $customer = Customer::create($request->except('start_date', 'expiration_date', 'amount', 'user_id') + ['user_id' => $user_id]);
 
-        $customer->connection()->create($request->except('name', 'last_name', 'mac', 'locked', 'user_id') + ['user_id' => $user_id]);
+        $customer->connection()->create($request->except('name', 'last_name', 'mac','phone', 'locked', 'user_id') + ['user_id' => $user_id]);
 
         return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 201);
     }

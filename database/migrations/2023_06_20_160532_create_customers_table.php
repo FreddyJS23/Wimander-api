@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('last_name');
+            $table->string('phone');
             $table->string('mac')->unique();
             $table->boolean('locked')->default(false);
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();

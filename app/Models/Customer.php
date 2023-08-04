@@ -15,6 +15,7 @@ class Customer extends Model
         'name',
         'last_name',
         'mac',
+        'phone',
         'locked',
     ];
 
