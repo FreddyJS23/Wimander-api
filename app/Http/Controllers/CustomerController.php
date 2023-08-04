@@ -36,7 +36,7 @@ class CustomerController extends Controller
 
         $customer->connection()->create($request->except('name', 'last_name', 'mac','phone', 'locked', 'user_id') + ['user_id' => $user_id]);
 
-        return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 201);
+        return  response()->json(['status' => true, 'customer' => new CustomerResource($customer)], 201);
     }
 
     /**
@@ -44,7 +44,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        if ($customer)   return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 200);
+        if ($customer)   return  response()->json(['status' => true, 'customer' => new CustomerResource($customer)], 200);
         else   return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
     }
   
@@ -56,7 +56,7 @@ class CustomerController extends Controller
     {
         $customer->fill($request->all())->save();
 
-        return  response()->json(['status' => true, 'data' => new CustomerResource($customer)], 200);
+        return  response()->json(['status' => true, 'customer' => new CustomerResource($customer)], 200);
     }
 
     /**
@@ -65,7 +65,6 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     { 
         if(!$customer)  return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
-      
-        return  response()->json(['status' => true, 'data' => Customer::destroy($customer->id)], 200);
+        return  response()->json(['status' => true, 'customerID' =>Customer::destroy($customer->id) ?  $customer->id : '' ], 200);
     }
 }
