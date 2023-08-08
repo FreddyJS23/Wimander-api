@@ -7,16 +7,18 @@ use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerCollection;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
+use DateInterval;
+use DateTime;
 use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->authorizeResource(Customer::class, 'customer');
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -31,10 +33,14 @@ class CustomerController extends Controller
     public function store(CustomerRequest $request)
     {
         $user_id = Auth::id();
+        $fechaInicio = new DateTime($request->start_date);
 
-        $customer = Customer::create($request->except('start_date', 'expiration_date', 'amount', 'user_id') + ['user_id' => $user_id]);
+        if ($request->plan == "15D")   $fechaExpiracion = $fechaInicio->add(new DateInterval('P15D'))->format('Y-m-d');
+        elseif ($request->plan == "30D")   $fechaExpiracion = $fechaInicio->add(new DateInterval('P30D'))->format('Y-m-d');
 
-        $customer->connection()->create($request->except('name', 'last_name', 'mac','phone', 'locked', 'user_id') + ['user_id' => $user_id]);
+        $customer = Customer::create($request->except('start_date', 'amount', 'user_id', 'plan') + ['user_id' => $user_id]);
+
+        $customer->connection()->create($request->except('name', 'last_name', 'mac', 'phone', 'locked', 'user_id', 'plan') + ['expiration_date' => $fechaExpiracion, 'user_id' => $user_id]);
 
         return  response()->json(['status' => true, 'customer' => new CustomerResource($customer)], 201);
     }
@@ -47,8 +53,8 @@ class CustomerController extends Controller
         if ($customer)   return  response()->json(['status' => true, 'customer' => new CustomerResource($customer)], 200);
         else   return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
     }
-  
-     
+
+
     /**
      * Update the specified resource in storage.
      */
@@ -63,8 +69,8 @@ class CustomerController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Customer $customer)
-    { 
-        if(!$customer)  return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
-        return  response()->json(['status' => true, 'customerID' =>Customer::destroy($customer->id) ?  $customer->id : '' ], 200);
+    {
+        if (!$customer)  return  response()->json(['status' => false, 'error' => 'Data not found'], 404);
+        return  response()->json(['status' => true, 'customerID' => Customer::destroy($customer->id) ?  $customer->id : ''], 200);
     }
 }
