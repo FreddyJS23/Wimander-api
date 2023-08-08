@@ -26,7 +26,8 @@ class CustomerRequest extends ApiValidationRequest
             'phone'=>'required|min:7|max:12',
             'locked'=>'prohibited',
             'start_date'=>'required|date_format:Y-m-d',
-            'expiration_date'=>'required|date_format:Y-m-d',
+            'plan'=>'required|in:15D,30D',
+            'expiration_date'=>'prohibited',
             'amount'=>'required|decimal:0,2'
         ];
     }
