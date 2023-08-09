@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Rules\LastPasswordConfirmed;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -41,7 +42,7 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->password = Hash::make($request->password);
-        $user->fill($request->all())->save();
+        $user->fill($request->except('last_password'))->save();
 
         return  response()->json(['status' => true, 'user' => new UserResource($user)], 200);
     }
