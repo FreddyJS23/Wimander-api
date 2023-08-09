@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use App\Rules\LastPasswordConfirmed;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class UpdateUserRequest extends ApiValidationRequest
 {
@@ -29,8 +31,10 @@ class UpdateUserRequest extends ApiValidationRequest
             'user'=>'required|min:3|max:15', Rule::unique('users')->ignore(Auth::id()),
             'email'=>'required|email', Rule::unique('users')->ignore(Auth::id()),
             'password'=>'required|min:7|max:15',
+            'last_password'=>new LastPasswordConfirmed,
+            'last_password'=>'required|min:7|max:15',
             'active'=>'prohibited',
-            'role_id'=>'prohibited'
+            'role_id'=>'prohibited',
         ];
     }
 }
