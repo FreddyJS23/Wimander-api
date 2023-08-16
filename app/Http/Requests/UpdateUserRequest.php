@@ -32,7 +32,6 @@ class UpdateUserRequest extends ApiValidationRequest
             'email'=>'required|email', Rule::unique('users')->ignore(Auth::id()),
             'password'=>'required|min:7|max:15',
             'last_password'=>new LastPasswordConfirmed,
-            'last_password'=>'required|min:7|max:15',
             'active'=>'prohibited',
             'role_id'=>'prohibited',
         ];
