@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConfigurationController;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Proceeds;
@@ -40,6 +41,9 @@ Route::middleware('auth:sanctum')->group(function () {
     
     //ganancia neta de todos los clientes
     Route::get('/proceeds',Proceeds::class);
+    
+    //configuraciones
+    Route::resource('configurations', ConfigurationController::class)->only(['index', 'store']);
     
     //cerrar sesion
     Route::get('/logout',Logout::class);
