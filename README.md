@@ -2,7 +2,7 @@
 
 
 
-## Wimander backend (API) con Laravel
+## Wimander backend (API) 
 
 Backend de wimander para persistir la acion
 
